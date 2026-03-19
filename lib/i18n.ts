@@ -28,6 +28,11 @@ export type I18nKey =
   | "entropy"
   | "bruteForceEstimate"
   | "securityWarnings"
+  | "warningTooShort"
+  | "warningAddUppercase"
+  | "warningAddNumber"
+  | "warningAddSymbol"
+  | "warningAvoidCommonPatterns"
   | "noIssues"
   | "privacyTitle"
   | "privacyText"
@@ -63,6 +68,11 @@ const STRINGS: Record<Locale, Record<I18nKey, string>> = {
     entropy: "Entropy",
     bruteForceEstimate: "Brute force (est.)",
     securityWarnings: "Security warnings",
+    warningTooShort: "Password is too short",
+    warningAddUppercase: "Add at least one uppercase letter",
+    warningAddNumber: "Add at least one number",
+    warningAddSymbol: "Add at least one symbol",
+    warningAvoidCommonPatterns: 'Avoid common patterns like "123", "password", or "qwerty"',
     noIssues: "No obvious issues detected.",
     privacyTitle: "Privacy",
     privacyText: "All processing happens locally in your browser. No password is stored or transmitted.",
@@ -97,6 +107,11 @@ const STRINGS: Record<Locale, Record<I18nKey, string>> = {
     entropy: "Entropi",
     bruteForceEstimate: "Brute force (perkiraan)",
     securityWarnings: "Peringatan keamanan",
+    warningTooShort: "Kata sandi terlalu pendek",
+    warningAddUppercase: "Tambahkan setidaknya satu huruf besar",
+    warningAddNumber: "Tambahkan setidaknya satu angka",
+    warningAddSymbol: "Tambahkan setidaknya satu simbol",
+    warningAvoidCommonPatterns: 'Hindari pola umum seperti "123", "password", atau "qwerty"',
     noIssues: "Tidak ada masalah yang jelas terdeteksi.",
     privacyTitle: "Privasi",
     privacyText: "Semua diproses di browser Anda. Tidak ada kata sandi yang disimpan atau dikirim.",

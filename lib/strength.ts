@@ -1,5 +1,12 @@
 export type StrengthLevel = "Weak" | "Moderate" | "Strong" | "Very Strong";
 
+export type PasswordWarning =
+  | "warningTooShort"
+  | "warningAddUppercase"
+  | "warningAddNumber"
+  | "warningAddSymbol"
+  | "warningAvoidCommonPatterns";
+
 export function calculateEntropy(password: string): number {
   if (!password) return 0;
 
@@ -33,18 +40,18 @@ export function getEntropyAndStrength(password: string): { entropy: number; stre
   return { entropy, strength };
 }
 
-export function analyzePassword(password: string): string[] {
-  const warnings: string[] = [];
+export function analyzePassword(password: string): PasswordWarning[] {
+  const warnings: PasswordWarning[] = [];
   if (!password) return warnings;
 
-  if (password.length < 8) warnings.push("Password is too short");
-  if (!/[A-Z]/.test(password)) warnings.push("Add at least one uppercase letter");
-  if (!/\d/.test(password)) warnings.push("Add at least one number");
-  if (!/[^A-Za-z0-9]/.test(password)) warnings.push("Add at least one symbol");
+  if (password.length < 8) warnings.push("warningTooShort");
+  if (!/[A-Z]/.test(password)) warnings.push("warningAddUppercase");
+  if (!/\d/.test(password)) warnings.push("warningAddNumber");
+  if (!/[^A-Za-z0-9]/.test(password)) warnings.push("warningAddSymbol");
 
   const lower = password.toLowerCase();
   if (lower.includes("123") || lower.includes("password") || lower.includes("qwerty")) {
-    warnings.push('Avoid common patterns like "123", "password", or "qwerty"');
+    warnings.push("warningAvoidCommonPatterns");
   }
 
   return warnings;
