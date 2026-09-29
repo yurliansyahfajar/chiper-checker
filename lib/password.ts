@@ -1,9 +1,17 @@
+import { WORDLIST } from "@/lib/wordlist";
+
 type PasswordOptions = {
     uppercase?: boolean;
     lowercase?: boolean;
     numbers?: boolean;
     symbols?: boolean;
     requireEachSelectedSet?: boolean; // default true
+  };
+
+type PassphraseOptions = {
+    separator?: string; // default "-"
+    capitalize?: boolean; // default true
+    appendNumber?: boolean; // default false
   };
   
   const CHARSETS = {
@@ -88,4 +96,24 @@ type PasswordOptions = {
     // Shuffle so required chars aren't predictable at the front.
     secureShuffle(resultChars);
     return resultChars.join("");
+  }
+
+  export function generateSecurePassphrase(wordCount: number, options: PassphraseOptions = {}): string {
+    const count = Math.floor(wordCount);
+    if (!Number.isFinite(count) || count <= 0) throw new Error("wordCount must be a positive number.");
+    if (WORDLIST.length < 2) throw new Error("Wordlist is too small.");
+
+    const separator = options.separator ?? "-";
+    const capitalize = options.capitalize ?? true;
+    const appendNumber = options.appendNumber ?? false;
+
+    const words: string[] = [];
+    for (let i = 0; i < count; i++) {
+      const word = WORDLIST[secureRandomInt(WORDLIST.length)]!;
+      words.push(capitalize ? word[0]!.toUpperCase() + word.slice(1) : word);
+    }
+
+    let phrase = words.join(separator);
+    if (appendNumber) phrase += String(secureRandomInt(100)).padStart(2, "0");
+    return phrase;
   }
